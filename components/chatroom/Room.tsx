@@ -26,7 +26,7 @@ export default function Room({ yourID, theirID }: any) {
   }, [db]);
   return (
     <div className="flex flex-col w-full h-full  bg-gray-50 py-4 px-12 relative">
-      <div className="flex flex-col w-full h-[500px] overflow-y-scroll scrollbar-none">
+      <div className="flex flex-col w-full h-[560px] lg:h-[500px] overflow-y-scroll scrollbar-none">
         {messages.map((message: any) => (
           <div
             key={message.id}

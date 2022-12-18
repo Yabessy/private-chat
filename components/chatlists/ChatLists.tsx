@@ -38,10 +38,10 @@ export default function Chatlists({ isUserHadChat }: any) {
         message: "Hello",
         timestamp: serverTimestamp()
       })
-        .then(() => router.push(`/chatroom?yourID=${currentUser.uid}&theirID=${randomUser.uid}`))
+        .then(() => router.push(`/chatroom?theirID=${randomUser.uid}`))
         .catch((e) => console.log(e))
     } else {
-      router.push(`/chatroom?yourID=${currentUser.uid}&theirID=${randomUser.uid}`)
+      router.push(`/chatroom?theirID=${randomUser.uid}`)
     }
   }
   return (
