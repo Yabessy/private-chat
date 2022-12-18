@@ -1,11 +1,11 @@
 import Head from "next/head"
-import { Navbar } from "../components"
+import { Navbar, Room } from "../components"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../firebase"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
-export default function chatroom({yourID, theirID}) {
+export default function chatroom({yourID, theirID}:any) {
   const router = useRouter()
   const [theirProfile, setTheirProfile] = useState<any>(null)
   useEffect(() => {
@@ -14,7 +14,6 @@ export default function chatroom({yourID, theirID}) {
       const docSnap = await getDoc(docRef)
       if (docSnap.exists()) {
         setTheirProfile(docSnap.data())
-        console.log(docSnap.data())
       }
     }
     checkTheirProfile(yourID, theirID)
@@ -26,8 +25,9 @@ export default function chatroom({yourID, theirID}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full flex flex-col items-center bg-gray-50">
+      <main className="w-full h-[720px] sm:h-[1080px] lg:h-screen flex flex-col items-center bg-gray-50">
         <Navbar theirProfile={theirProfile}/>
+        <Room yourID={yourID} theirID={theirID}/>
       </main>
     </div>
   )

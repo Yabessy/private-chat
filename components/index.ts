@@ -1,3 +1,4 @@
 import Navbar from "./navbar/Navbar";
 import Chatlists from "./chatlists/ChatLists";
-export { Navbar, Chatlists };
+import Room from "./chatroom/Room";
+export { Navbar, Chatlists, Room };

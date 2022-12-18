@@ -2,7 +2,7 @@ import type { NextPage } from "next"
 import Head from "next/head"
 import { useRecoilState } from "recoil"
 import { Chatlists, Navbar } from "../components"
-import { userState } from "../components/atom/userState"
+import { userState } from "../atom/userAtom"
 
 const Home: NextPage = () => {
   const [currentUser] = useRecoilState(userState)

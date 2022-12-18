@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../firebase"
 import { useRecoilState } from "recoil"
-import { userState } from "../atom/userState"
+import { userState } from "../../atom/userAtom"
 
 export default function Navbar({ theirProfile }: any) {
   const [currentUser, setCurrentUser] = useRecoilState(userState)

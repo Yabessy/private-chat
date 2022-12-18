@@ -2,7 +2,7 @@ import { addDoc, collection, doc, getDoc, getDocs, query, serverTimestamp, setDo
 import { useState } from "react"
 import { useRecoilState } from "recoil"
 import { auth, db } from "../../firebase"
-import { userState } from "../atom/userState"
+import { userState } from "../../atom/userAtom"
 import ChatList from "./ChatList"
 import { useRouter } from "next/router"
 
