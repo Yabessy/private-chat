@@ -25,7 +25,7 @@ export default function chatroom({yourID, theirID}:any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full h-[720px] sm:h-[1080px] lg:h-screen flex flex-col items-center bg-gray-50">
+      <main className="w-full h-[720px] sm:h-[1080px] lg:h-screen flex flex-col items-center bg-gray-50 font-mono">
         <Navbar theirProfile={theirProfile}/>
         <Room yourID={yourID} theirID={theirID}/>
       </main>

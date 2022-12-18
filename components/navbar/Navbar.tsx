@@ -44,7 +44,7 @@ export default function Navbar({ theirProfile }: any) {
     })
   }, [])
   return (
-    <nav className="w-full flex sticky top-0 px-4 py-4 font-mono bg-blue-300 text-white">
+    <nav className="z-40 w-full flex sticky top-0 px-4 py-4 font-mono bg-blue-300 text-white">
       {currentUser ? (
         <>
           <div className="flex-1 w-auto flex justify-start items-center overflow-hidden">
