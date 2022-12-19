@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.13",
     "firebase": "^9.15.0",
     "moment": "^2.29.4",
     "next": "latest",
