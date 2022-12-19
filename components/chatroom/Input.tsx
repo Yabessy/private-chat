@@ -25,7 +25,7 @@ export default function Input({ yourID, theirID }: any) {
     );
   }
   return (
-    <div className="absolute bottom-0 inset-x-0 w-full h-16 px-10 pb-5">
+    <div className="absolute bottom-0 inset-x-0 w-full h-16 px-4 md:px-10 pb-5">
       <div className="relative w-full h-full rounded-md">
         <textarea
           className="absolute inset-0 bg-blue-100 rounded-md pl-2 focus:outline-none pr-20 pt-1 border border-blue-400"

@@ -92,6 +92,7 @@ export default function Chatlists() {
             {chats.map((chat) => (
               <div
                 onClick={() => openChatRoom(chat)}
+                key={chat.id}
                 className="w-full h-auto flex justify-between items-center px-4 py-2 rounded-md bg-blue-100 cursor-pointer shadow hover:bg-blue-200 hover:shadow-sm">
                 <ChatList user={chat} />
               </div>
