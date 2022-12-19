@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="w-full h-[720px] sm:h-[1080px] lg:h-screen flex flex-col items-center bg-blue-50">
-        <Navbar />
+        <Navbar whereIsMe="home"/>
         {currentUser ? (
           <Chatlists />
         ) : (

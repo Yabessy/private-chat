@@ -16,13 +16,19 @@ export default function chatroom({ theirID }: any) {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         router.push("/");
-        
       } else {
+        if (user.uid === theirID) {
+          router.push("/");
+        }
         setCurrentUserID(user.uid);
-        const docRef = doc(db, "users", user.uid, "chats", theirID);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setTheirProfile(docSnap.data());
+        if (!theirID) {
+          setTheirProfile(null);
+        } else {
+          const docRef = doc(db, "users", user.uid, "chats", theirID);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setTheirProfile(docSnap.data());
+          }
         }
       }
     });
@@ -35,10 +41,15 @@ export default function chatroom({ theirID }: any) {
       </Head>
 
       <main className="w-full h-[720px] sm:h-[1080px] lg:h-screen flex flex-col items-center bg-gray-50 font-mono">
-        {currentUserID && theirProfile && (
+        {currentUserID && theirProfile ? (
           <>
-            <Navbar theirProfile={theirProfile} />
+            <Navbar theirProfile={theirProfile} whereIsMe="room" />
             <Room yourID={currentUserID} theirID={theirID} />
+          </>
+        ) : (
+          <>
+            <Navbar whereIsMe="room" />
+            <h1>nothing....</h1>
           </>
         )}
       </main>
@@ -48,6 +59,12 @@ export default function chatroom({ theirID }: any) {
 
 export async function getServerSideProps(context: any) {
   const { theirID } = context.query;
+  if (!theirID)
+    return {
+      props: {
+        theirID: null,
+      },
+    };
   return {
     props: {
       theirID,
