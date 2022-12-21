@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil"
 import { userState } from "../components/userAtom"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 
-export default function Navbar({ theirProfile, whereIsMe }: any) {
+export default function Navbar() {
   const provider = new GoogleAuthProvider()
   const [user, setUser] = useRecoilState(userState)
   const [loading, setLoading] = useState(false)
