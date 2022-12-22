@@ -2,7 +2,7 @@ import Input from "./Input"
 import Message from "./Message"
 
 export default function ChatRoom({ chat }: any) {
-  console.log(chat.id)
+  // console.log(chat.data())
   return (
     <div className="flex flex-col">
       <div className="flex">

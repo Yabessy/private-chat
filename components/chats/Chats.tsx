@@ -9,10 +9,10 @@ export default function Chats({ user }: any) {
   const [search, setSearch] = useState("")
   const [finded, setFinded] = useState<any>([])
   useEffect(() => {
-    onSnapshot(collection(db, "chatRooms"), (snapshot) => {
+    onSnapshot(query(collection(db, "chatRooms"), where("users", "array-contains", user.uid)), (snapshot) => {
       setChatRooms(snapshot.docs)
     })
-  }, [])
+  }, [db])
   useEffect(() => {
     onSnapshot(query(collection(db, "users2"), where("displayName", "==", search), limit(1)), (snapshot) => {
       setFinded(snapshot.docs.map((doc: any) => doc.data()))
@@ -28,7 +28,10 @@ export default function Chats({ user }: any) {
         users: [user.uid, ID],
         theirImg: photoURL,
         theirName: displayName
-      }).then(() => setChatRoom(qSnap))
+      }).then(async () => {
+        const qSnap = await getDocs(q).then((snapshot) => snapshot.docs)
+        setChatRoom(qSnap)
+      })
     } else {
       setChatRoom(qSnap)
     }
@@ -51,12 +54,18 @@ export default function Chats({ user }: any) {
               <h1>{user2.displayName}</h1>
             </div>
           ))}
-          {/* {chatRooms &&
+          {chatRooms &&
             chatRooms.map((chatRoom: any) => (
-              <div key={chatRoom.id} onClick={() => createChatRoom(chatRoom.data().users[1])}>
-                <h1>{chatRoom.data().users[1]}</h1>
+              <div
+                className="flex"
+                key={chatRoom.id}
+                onClick={() => {
+                  createChatRoom(chatRoom.data().users[1], chatRoom.data().theirImg, chatRoom.data().theirName)
+                }}>
+                <img src={chatRoom.data().theirImg} className="h-7 rounded-full" alt="" />
+                <h1>{chatRoom.data().theirName}</h1>
               </div>
-            ))} */}
+            ))}
         </>
       )}
     </div>
