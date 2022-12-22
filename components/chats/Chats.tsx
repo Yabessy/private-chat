@@ -17,22 +17,20 @@ export default function Chats({ user }: any) {
     onSnapshot(query(collection(db, "users2"), where("displayName", "==", search), limit(1)), (snapshot) => {
       setFinded(snapshot.docs.map((doc: any) => doc.data()))
     })
+    console.log(finded)
   }, [db, search])
-  async function createChatRoom(ID: any) {
-    let snap: any = []
-    const q = query(collection(db, "chatRooms"), where("users", "array-contains", user.uid && ID), limit(1))
-    const qSnap = await getDocs(q)
-    qSnap.forEach((doc) => {
-      snap.push(doc.id)
-      snap.push(doc.data())
-    })
-    if (snap.length === 0) {
-      console.log(snap)
+  async function createChatRoom(ID: any, photoURL: any, displayName: any) {
+    setChatRoom(null)
+    const q = query(collection(db, "chatRooms"), where("users", "in", [[user.uid, ID]]), limit(1))
+    const qSnap = await getDocs(q).then((snapshot) => snapshot.docs)
+    if (qSnap.length === 0) {
       await addDoc(collection(db, "chatRooms"), {
-        users: [user.uid, ID]
-      })
+        users: [user.uid, ID],
+        theirImg: photoURL,
+        theirName: displayName
+      }).then(() => setChatRoom(qSnap))
     } else {
-      setChatRoom(snap)
+      setChatRoom(qSnap)
     }
   }
   return (
@@ -42,23 +40,23 @@ export default function Chats({ user }: any) {
           <button onClick={() => setChatRoom(null)} className="btn">
             Back
           </button>
-          <ChatRoom id={chatRoom[0]} users={chatRoom[1]} />
+          <ChatRoom chat={chatRoom[0]} />
         </>
       ) : (
         <>
           <input className="border" type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
           {finded.map((user2: any) => (
-            <div key={user2.uid} onClick={() => createChatRoom(user2.uid)}>
-              <img src={user2.userImg} alt="" />
+            <div className="flex" key={user2.uid} onClick={() => createChatRoom(user2.uid, user2.photoURL, user2.displayName)}>
+              <img src={user2.photoURL} alt="" className="h-7 rounded-full" />
               <h1>{user2.displayName}</h1>
             </div>
           ))}
-          {chatRooms &&
+          {/* {chatRooms &&
             chatRooms.map((chatRoom: any) => (
               <div key={chatRoom.id} onClick={() => createChatRoom(chatRoom.data().users[1])}>
-                <h1>{chatRoom.data().users[0]}</h1>
+                <h1>{chatRoom.data().users[1]}</h1>
               </div>
-            ))}
+            ))} */}
         </>
       )}
     </div>
